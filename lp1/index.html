@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shivalik University — Admissions</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Shivalik University</h1>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#courses">Courses</a>
+        <a href="#placements">Placements</a>
+        <a href="#facilities">Facilities</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="hero" class="hero">
+      <div>
+        <h2>Shivalik University — Build your future</h2>
+        <p>Private University offering Engineering, Management, & Design programs with strong industry placements.</p>
+        <div class="cta-row">
+          <button id="feesBtn" class="btn">Check Course-wise Fees</button>
+          <a class="btn btn-ghost" href="#" id="downloadBrochure">Download Brochure</a>
+          <button class="btn primary" id="applyNow">Apply Now</button>
+        </div>
+      </div>
+
+      <aside class="lead-box">
+        <h3>Request Info / Apply</h3>
+        <form id="leadForm">
+          <label>Full Name <input name="name" id="name" required /></label>
+          <label>Email <input name="email" id="email" type="email" required /></label>
+          <label>Phone <input name="phone" id="phone" required maxlength="10" minlength="10" pattern="[0-9]{10}" /></label>
+          <label>State <input name="state" id="state" required /></label>
+          <label>Course Interested
+            <select name="course" id="course" required>
+              <option value="">--Select--</option>
+              <option value="btech">B.Tech</option>
+              <option value="mba">MBA</option>
+              <option value="bdes">B.Des</option>
+            </select>
+          </label>
+          <label>Intake Year
+            <select name="intake" id="intake" required>
+              <option value="">--Select--</option>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+            </select>
+          </label>
+          <label class="consent"><input type="checkbox" id="consent" required /> I consent to be contacted</label>
+          <div id="formMsg" class="form-msg" aria-live="polite"></div>
+          <button type="submit" class="btn full">Submit</button>
+        </form>
+      </aside>
+    </section>
+
+    <section id="overview">
+      <h3>Overview</h3>
+      <p>Shivalik University is a private university offering technology and management programs, industry-aligned curriculum and internships.</p>
+    </section>
+
+    <section id="courses">
+      <h3>Courses</h3>
+      <ul id="coursesList"></ul>
+    </section>
+
+    <section id="placements">
+      <h3>Placements</h3>
+      <p>Average package: INR 4.5 LPA. Top recruiters include TechCo, FinCorp, BuildIT.</p>
+    </section>
+
+    <section id="facilities">
+      <h3>Facilities</h3>
+      <ul>
+        <li>Hostel</li>
+        <li>Labs & Research Center</li>
+        <li>Sports Complex</li>
+        <li>Placement Cell</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Fee modal -->
+  <div id="feeModal" class="modal" aria-hidden="true">
+    <div class="modal-inner">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h4>Course-wise Fees</h4>
+      <div id="feesContent">Loading...</div>
+    </div>
+  </div>
+
+  <footer class="site-footer container">
+    <small>&copy; Shivalik University (Demo)</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
