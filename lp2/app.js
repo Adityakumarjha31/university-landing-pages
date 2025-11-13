@@ -1,6 +1,7 @@
 // CONFIG
 const PIPEDREAM_ENDPOINT = "https://eo50hmfjp7e1bre.m.pipedream.net";
-const API_BASE = "http://localhost:4000"; 
+const API_BASE = "https://edu-api-demo.onrender.com";
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const feesBtn = document.getElementById('feesBtn');
