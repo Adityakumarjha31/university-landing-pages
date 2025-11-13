@@ -1,6 +1,6 @@
 // CONFIG
 const PIPEDREAM_ENDPOINT = "https://eo50hmfjp7e1bre.m.pipedream.net"; 
-const API_BASE = "http://localhost:4000"; // Your local API
+const API_BASE = "http://localhost:4000"; 
 
 document.addEventListener('DOMContentLoaded', () => {
   const feesBtn = document.getElementById('feesBtn');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadBrochure = document.getElementById('downloadBrochure');
   const applyNow = document.getElementById('applyNow');
 
-  // Static data (only used for course list display)
+
   const university = {
     id: "shivalik",
     name: "Shivalik University",

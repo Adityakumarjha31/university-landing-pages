@@ -1,6 +1,6 @@
 // CONFIG
 const PIPEDREAM_ENDPOINT = "https://eo50hmfjp7e1bre.m.pipedream.net";
-const API_BASE = "http://localhost:4000"; // local API
+const API_BASE = "http://localhost:4000"; 
 
 document.addEventListener('DOMContentLoaded', () => {
   const feesBtn = document.getElementById('feesBtn');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadBrochure = document.getElementById('downloadBrochure');
   const applyNow = document.getElementById('applyNow');
 
-  // Static data for course list (fallback)
+  
   const university = {
     id: "kirantech",
     name: "Kiran Institute of Technology",
@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
-  // populate static course list on the page
+ 
   university.courses.forEach(c => {
     const li = document.createElement('li');
     li.textContent = `${c.name} — Fee: ${c.feeRange}`;
     coursesList.appendChild(li);
   });
 
-  // DYNAMIC FEES MODAL (from API)
+  
   feesBtn.addEventListener('click', async () => {
     feeModal.setAttribute('aria-hidden', 'false');
     feesContent.textContent = "Loading...";
@@ -61,22 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // close modal
+
   closeModal.addEventListener('click', () => feeModal.setAttribute('aria-hidden', 'true'));
   feeModal.addEventListener('click', (e) => { if (e.target === feeModal) feeModal.setAttribute('aria-hidden','true'); });
 
-  // brochure button
+
   downloadBrochure.addEventListener('click', (e) => {
     e.preventDefault();
     window.open("https://example.com/brochure-kiran.pdf", "_blank");
   });
 
-  // scroll to form
+
   applyNow.addEventListener('click', () => {
     document.getElementById("name").scrollIntoView({ behavior: "smooth" });
   });
 
-  // HANDLE LEAD FORM SUBMIT
+  
   leadForm.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     formMsg.textContent = "";
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // POST to Pipedream
+    
     try {
       const resp = await fetch(PIPEDREAM_ENDPOINT, {
         method: "POST",

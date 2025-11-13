@@ -38,19 +38,17 @@ const db = {
   leads: []
 };
 
-// GET /api/universities  -> list of universities (nested)
+
 app.get('/api/universities', (req, res) => {
   res.json({ count: db.universities.length, data: db.universities });
 });
 
-// GET /api/universities/:id  -> details for one university
 app.get('/api/universities/:id', (req, res) => {
   const u = db.universities.find(x => x.id === req.params.id);
   if (!u) return res.status(404).json({ error: 'University not found' });
   res.json(u);
 });
 
-// GET /api/fees/:univId/:courseCode -> fees for a single course
 app.get('/api/fees/:univId/:courseCode', (req, res) => {
   const u = db.universities.find(x => x.id === req.params.univId);
   if (!u) return res.status(404).json({ error: 'University not found' });
@@ -59,7 +57,7 @@ app.get('/api/fees/:univId/:courseCode', (req, res) => {
   res.json({ university: u.id, course: c.code, fees: c.fees });
 });
 
-// POST /api/leads -> accept lead JSON (stores in memory)
+
 app.post('/api/leads', (req, res) => {
   const lead = req.body;
   if (!lead || !lead.name || !lead.email || !lead.phone) {
@@ -72,7 +70,7 @@ app.post('/api/leads', (req, res) => {
   res.status(201).json({ message: 'Lead received', lead });
 });
 
-// simple health check
+
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
 app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));

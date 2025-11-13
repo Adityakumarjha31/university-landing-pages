@@ -1,7 +1,7 @@
 :root{
   --max:1100px;
-  --accent:#e63946; /* primary */
-  --accent-2:#ff7b83; /* soft accent */
+  --accent:#e63946; 
+  --accent-2:#ff7b83; 
   --bg:#f7f8fb;
   --card:#ffffff;
   --muted:#6b7280;
@@ -10,7 +10,7 @@
   --shadow-2: 0 10px 30px rgba(16,24,40,0.08);
 }
 
-/* reset & base */
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -23,14 +23,14 @@ body{
   line-height:1.5;
 }
 
-/* layout */
+
 .container{
   max-width:var(--max);
   margin:0 auto;
   padding:1.25rem;
 }
 
-/* header */
+
 .site-header{
   position:sticky;
   top:0;
@@ -61,7 +61,7 @@ body{
 }
 .site-header nav a:hover{ color:var(--accent); transform: translateY(-1px); }
 
-/* hero */
+
 .hero{
   display:grid;
   grid-template-columns: 1fr 360px;
@@ -83,7 +83,7 @@ body{
   font-weight:500;
 }
 
-/* CTA row */
+
 .cta-row{ display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap;}
 .btn{
   padding:0.6rem 1rem;
@@ -108,7 +108,7 @@ body{
   color:var(--accent);
 }
 
-/* lead box */
+
 .lead-box{
   width:100%;
   max-width:360px;
@@ -135,17 +135,17 @@ input:focus, select:focus, textarea:focus{
   border-color: rgba(99,102,241,0.18);
 }
 
-/* small helpers */
+
 .form-msg{ min-height:1.2rem; margin:.6rem 0 0 0; font-weight:600; }
 .btn.full{ width:100%; margin-top:.6rem; }
 
-/* content sections */
+
 section{ padding:1rem 0 1.5rem 0; }
 h3{ margin:.4rem 0; font-size:1.05rem; color:#071233; font-weight:700; }
 #coursesList{ padding-left:1.1rem; color:var(--muted); }
 #coursesList li{ margin:.45rem 0; }
 
-/* modal */
+
 .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60; }
 .modal[aria-hidden="false"]{ display:flex; }
 .modal::backdrop{ background: rgba(11,18,35,0.45); }
@@ -160,10 +160,9 @@ h3{ margin:.4rem 0; font-size:1.05rem; color:#071233; font-weight:700; }
 .modal-inner h4{ margin:0 0 .6rem 0; font-size:1.05rem; }
 .modal-close{ background:none; border:0; font-size:1.4rem; float:right; cursor:pointer; color:var(--muted); }
 
-/* footer */
 .site-footer{ text-align:center; padding:1.25rem 0; color:var(--muted); }
 
-/* responsive */
+
 @media (max-width:980px){
   .hero{ grid-template-columns: 1fr; }
   .lead-box{ max-width:100%; order:2; }
