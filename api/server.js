@@ -5,72 +5,85 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-const PORT = process.env.PORT || 4000;
-
+const PORT = 4000;
 const db = {
   universities: [
-    {
-      id: "shivalik",
-      name: "Shivalik University",
-      overview: "Shivalik University offers engineering, management and design programmes.",
+    { id: "parul",
+      name: "Parul University",
+      overview: "Parul University in Gujarat, lots of courses and a big campus.",
       courses: [
-        { code: "btech", name: "B.Tech (CSE)", duration: "4 years", fees: { min: 250000, max: 400000 } },
-        { code: "mba",  name: "MBA (Finance)", duration: "2 years", fees: { min: 180000, max: 300000 } },
-        { code: "bdes", name: "B.Des", duration: "4 years", fees: { min: 120000, max: 220000 } }
+        { code: "btech-cse", name: "B.Tech (CSE)", duration: "4 years", fees: { min: 280000, max: 450000 } },
+        { code: "mba-finance",  name: "MBA (Finance)", duration: "2 years", fees: { min: 200000, max: 320000 } },
+        { code: "bca", name: "BCA", duration: "3 years", fees: { min: 150000, max: 250000 } }
       ],
-      placements: { avg: 450000, top: 1200000, recruiters: ["TechCo","FinCorp","BuildIT"] },
-      facilities: ["Hostel","Labs","Sports Complex","Placement Cell"]
+      placements: { avg: 500000, top: 1500000, recruiters: ["InfoSys","Wipro","TCS"] },
+      facilities: ["Hostel","Big Labs","Food Court","Gym","Placement Cell"]
     },
-    {
-      id: "kirantech",
-      name: "Kiran Institute of Technology",
-      overview: "Kiran Institute focuses on applied engineering and strong internship pipelines.",
+    {id: "aditya",
+      name: "Aditya Institute of Technology",
+      overview: "Aditya Institute is known for its engineering and good placements.",
       courses: [
-        { code: "btech-me", name: "B.Tech (ME)", duration: "4 years", fees: { min: 200000, max: 350000 } },
-        { code: "mtech-rob", name: "M.Tech (Robotics)", duration: "2 years", fees: { min: 150000, max: 280000 } },
-        { code: "bba", name: "BBA", duration: "3 years", fees: { min: 90000, max: 160000 } }
+        { code: "btech-it", name: "B.Tech (IT)", duration: "4 years", fees: { min: 220000, max: 380000 } },
+        { code: "mtech-vlsi", name: "M.Tech (VLSI)", duration: "2 years", fees: { min: 180000, max: 290000 } },
+        { code: "bba", name: "BBA", duration: "3 years", fees: { min: 100000, max: 180000 } }
       ],
-      placements: { avg: 380000, top: 1000000, recruiters: ["AutoInc","RoboticsLab","DataWorks"] },
-      facilities: ["Workshops","Research Labs","Hostel","Gym"]
+      placements: { avg: 420000, top: 1100000, recruiters: ["TechMahindra","HCL","DataWorks"] },
+      facilities: ["Workshops","Research Labs","Hostel","Library"]
     }
   ],
   leads: []
 };
 
-
 app.get('/api/universities', (req, res) => {
-  res.json({ count: db.universities.length, data: db.universities });
+res.json({ 
+ count: db.universities.length, 
+data: db.universities 
+  });
 });
 
 app.get('/api/universities/:id', (req, res) => {
-  const u = db.universities.find(x => x.id === req.params.id);
-  if (!u) return res.status(404).json({ error: 'University not found' });
-  res.json(u);
+ const univId = req.params.id;
+const university = db.universities.find(uni => uni.id === univId);
+ if (!university) {
+res.status(404).json({ error: 'University not found, check the ID' });
+} else {
+res.json(university);
+}
 });
 
 app.get('/api/fees/:univId/:courseCode', (req, res) => {
-  const u = db.universities.find(x => x.id === req.params.univId);
-  if (!u) return res.status(404).json({ error: 'University not found' });
-  const c = u.courses.find(cc => cc.code === req.params.courseCode);
-  if (!c) return res.status(404).json({ error: 'Course not found' });
-  res.json({ university: u.id, course: c.code, fees: c.fees });
-});
+ const univId = req.params.univId;
+ const courseCode = req.params.courseCode;
+ const university = db.universities.find(uni => uni.id === univId);
+if (!university) {
+ return res.status(404).json({ error: 'University not found' });
+}
 
+const course = university.courses.find(c => c.code === courseCode);
+ if (!course) {
+return res.status(404).json({ error: 'Course not found' });
+ }
+ res.json({ 
+ university: university.name, 
+course: course.name, 
+fees: course.fees 
+ });
+});
 
 app.post('/api/leads', (req, res) => {
-  const lead = req.body;
-  if (!lead || !lead.name || !lead.email || !lead.phone) {
-    return res.status(400).json({ error: 'Invalid lead. name, email, phone required.' });
-  }
-  lead.id = db.leads.length + 1;
-  lead.receivedAt = new Date().toISOString();
-  db.leads.push(lead);
-  console.log('New lead saved (in-memory):', lead);
-  res.status(201).json({ message: 'Lead received', lead });
+ const leadData = req.body;
+
+if (!leadData.name || !leadData.email || !leadData.phone) {
+ return res.status(400).json({ error: 'Invalid lead. need name, email, and phone.' });
+ } 
+ leadData.id = db.leads.length + 1;
+ leadData.receivedAt = new Date().toISOString();
+
+ db.leads.push(leadData);
+
+res.status(201).json({ message: 'Lead received, thanks!', data: leadData });
 });
 
-
-app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
-
-app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+console.log(`API server is running on http://localhost:${PORT}`);
+});

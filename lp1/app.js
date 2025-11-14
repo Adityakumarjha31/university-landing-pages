@@ -1,131 +1,97 @@
-// CONFIG
-const PIPEDREAM_ENDPOINT = "https://eo50hmfjp7e1bre.m.pipedream.net"; 
-const API_BASE = "https://edu-api-demo.onrender.com";
 
+const PIPEDREAM_ENDPOINT = "https://eoob92tdcfokgpj.m.pipedream.net";
+const courses = [
+  { name: "B.Tech (CSE)", fee: "₹2.2 - 3.5 L" },
+  { name: "MBA", fee: "₹1.8 - 2.8 L" },
+  { name: " B.Com", fee: "₹1.0 - 2.0 L" }
+];
+document.addEventListener("DOMContentLoaded", function() {
+  const feesBtn = document.getElementById("feesBtn");
+  const feeModal = document.getElementById("feeModal");
+  const closeModal = document.getElementById("closeModal");
+  const feesContent = document.getElementById("feesContent");
+  const coursesList = document.getElementById("coursesList");
+  const leadForm = document.getElementById("leadForm");
+  const formMsg = document.getElementById("formMsg");
+  const brochure = document.getElementById("downloadBrochure");
+  const applyNow = document.getElementById("applyNow");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const feesBtn = document.getElementById('feesBtn');
-  const feeModal = document.getElementById('feeModal');
-  const closeModal = document.getElementById('closeModal');
-  const feesContent = document.getElementById('feesContent');
-  const coursesList = document.getElementById('coursesList');
-  const leadForm = document.getElementById('leadForm');
-  const formMsg = document.getElementById('formMsg');
-  const downloadBrochure = document.getElementById('downloadBrochure');
-  const applyNow = document.getElementById('applyNow');
+  if (coursesList) {
+    let courseHTML = "";
+    for (let i = 0; i < courses.length; i++) {
+      courseHTML += `<li>${courses[i].name} — ${courses[i].fee}</li>`;
+    }
+    coursesList.innerHTML = courseHTML;
+  }
+  if (feesBtn && feeModal && feesContent) {
+    
+    feesBtn.addEventListener("click", () => {
+      feesContent.innerHTML = courses.map(c => 
+        `<p><strong>${c.name}</strong><br>${c.fee}</p>`
+      ).join("");
+      feeModal.style.display = "block";
+    });if (closeModal) {
+      closeModal.addEventListener("click", () => {
+        feeModal.style.display = "none";
+      });
+    }
+    feeModal.addEventListener("click", e => { 
+      if (e.target === feeModal) {
+        feeModal.style.display = "none";
+      }
+    });
+  }
+if (applyNow) {
+    applyNow.addEventListener("click", () => {
+      document.getElementById("name")?.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+  if (leadForm) {
+    leadForm.addEventListener("submit", handleFormSubmit);
+  }
 
-
-  const university = {
-    id: "shivalik",
-    name: "Shivalik University",
-    courses: [
-      { code: "btech", name: "B.Tech (CSE)", feeRange: "₹2.5 - 4.0 LPA" },
-      { code: "mba",  name: "MBA (Finance)", feeRange: "₹1.8 - 3.0 LPA" },
-      { code: "bdes", name: "B.Des", feeRange: "₹1.2 - 2.2 LPA" }
-    ]
+}); 
+async function handleFormSubmit(e) {
+  e.preventDefault(); 
+  const form = e.target;
+  const formMsg = document.getElementById("formMsg");
+  formMsg.textContent = ""; 
+  const phoneVal = form.phone.value.trim();
+  if (phoneVal.length !== 10) {
+    formMsg.style.color = "red"; 
+    formMsg.textContent = "Enter a valid 10-digit phone.";
+    return;
+  }
+  const data = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: phoneVal,
+    course: form.course.value,
+    intake: form.intake.value,
+    consent: form.consent.checked, 
+    university: "aditya", 
+    time: new Date().toISOString()
   };
 
-  // populate static course list on the page
-  university.courses.forEach(c => {
-    const li = document.createElement('li');
-    li.textContent = `${c.name} — Fee: ${c.feeRange}`;
-    coursesList.appendChild(li);
-  });
+  try {
+    const res = await fetch(PIPEDREAM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-  // DYNAMIC FEES MODAL (from API)
-  feesBtn.addEventListener('click', async () => {
-    feeModal.setAttribute('aria-hidden', 'false');
-    feesContent.textContent = "Loading...";
-    try {
-      const res = await fetch(`${API_BASE}/api/universities/${university.id}`);
-      if (!res.ok) throw new Error("API failed");
-
-      const u = await res.json();
-
-      // Map API fees → HTML
-      const html = u.courses.map(c => {
-        const min = c.fees?.min ?? null;
-        const max = c.fees?.max ?? null;
-        let feeText = c.feeRange || "N/A";
-
-        if (min !== null && max !== null) {
-          const minTxt = `₹${(min/100000).toFixed(1)} L`;
-          const maxTxt = `₹${(max/100000).toFixed(1)} L`;
-          feeText = `${minTxt} - ${maxTxt}`;
-        }
-
-        return `<div><strong>${c.name}</strong><div>${feeText}</div></div>`;
-      }).join("<hr/>");
-
-      feesContent.innerHTML = html;
-
-    } catch (err) {
-      console.error(err);
-      feesContent.textContent = "Failed to load fees from API.";
+    if (res.ok) {
+      formMsg.style.color = "green"; 
+      formMsg.textContent = "Thanks — submitted!";
+      form.reset();
+    } else {
+      
+      formMsg.textContent = "Submission failed. Please try again.";
+      console.log("Submission error", res);
     }
-  });
-
-  // close modal
-  closeModal.addEventListener('click', () => feeModal.setAttribute('aria-hidden', 'true'));
-  feeModal.addEventListener('click', (e) => { 
-    if (e.target === feeModal) feeModal.setAttribute('aria-hidden', 'true'); 
-  });
-
-  // brochure button
-  downloadBrochure.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.open("https://example.com/brochure-shivalik.pdf", "_blank");
-  });
-
-  // scroll to form
-  applyNow.addEventListener('click', () => {
-    document.getElementById("name").scrollIntoView({ behavior: "smooth" });
-  });
-
-  // HANDLE LEAD FORM SUBMIT
-  leadForm.addEventListener('submit', async (ev) => {
-    ev.preventDefault();
-    formMsg.textContent = "";
-
-    const data = {
-      name: leadForm.name.value.trim(),
-      email: leadForm.email.value.trim(),
-      phone: leadForm.phone.value.trim(),
-      state: leadForm.state.value.trim(),
-      course: leadForm.course.value,
-      intake: leadForm.intake.value,
-      consent: leadForm.consent.checked,
-      university: university.id,
-      submittedAt: new Date().toISOString()
-    };
-
-    if (!/^[0-9]{10}$/.test(data.phone)) {
-      formMsg.style.color = "red";
-      formMsg.textContent = "Enter a valid 10-digit phone number.";
-      return;
-    }
-
-    // POST to Pipedream
-    try {
-      const resp = await fetch(PIPEDREAM_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      if (resp.ok) {
-        formMsg.style.color = "green";
-        formMsg.textContent = "Thanks! Your request has been submitted.";
-        leadForm.reset();
-      } else {
-        formMsg.style.color = "red";
-        formMsg.textContent = "Submission failed. Try again later.";
-      }
-
-    } catch (err) {
-      console.error(err);
-      formMsg.style.color = "red";
-      formMsg.textContent = "Network error. Could not submit.";
-    }
-  });
-});
+  } catch (err) {
+    formMsg.style.color = "red"; 
+    formMsg.textContent = "Network error. Check connection.";
+    console.error("Fetch error:", err); 
+  }
+}

@@ -1,105 +1,118 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kiran Institute of Technology — Admissions</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PARUL University  Admissions</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>Kiran Institute of Technology</h1>
-      <nav>
-        <a href="#overview">Overview</a>
-        <a href="#courses">Courses</a>
-        <a href="#placements">Placements</a>
-        <a href="#facilities">Facilities</a>
-      </nav>
+  <header class="header-main">
+ <div class="wrap">
+<h1>PARUL University</h1>
+<nav class="top-nav">
+  <a href="#overview">About</a>
+   <a href="#course">Course</a>
+    <a href="#placement">Placement</a>
+     <a href="#facilities">Facilities</a>
+</nav>
+ </div>
+</header>
+<main class="wrap main-content">
+  <section id="hero" class="hero-section">
+    <h2>Prepare for the future</h2>
+    <p>Mix of tech,managment and design program-pratical learning</p>
+    <div class="action">
+  <button id="feesBtn" class="btn">Course Fee</button>
+
+   <a id="downloadBrochure" class="btn ghost" href="#">Brochure</a>
+
+<button id="applyNow" class="btn primary">Apply</button>
+</div>
     </div>
-  </header>
-
-  <main class="container">
-    <section id="hero" class="hero">
-      <div>
-        <h2>Kiran Institute — Practical engineering for industry</h2>
-        <p>Applied engineering, robotics and industry internships with high placement focus.</p>
-        <div class="cta-row">
-          <button id="feesBtn" class="btn">Check Course-wise Fees</button>
-          <a class="btn btn-ghost" href="#" id="downloadBrochure">Download Brochure</a>
-          <button class="btn primary" id="applyNow">Apply Now</button>
-        </div>
-      </div>
-
-      <aside class="lead-box">
-        <h3>Request Info / Apply</h3>
-        <form id="leadForm">
-          <label>Full Name <input name="name" id="name" required /></label>
-          <label>Email <input name="email" id="email" type="email" required /></label>
-          <label>Phone <input name="phone" id="phone" required maxlength="10" minlength="10" pattern="[0-9]{10}" /></label>
-          <label>State <input name="state" id="state" required /></label>
-          <label>Course Interested
-            <select name="course" id="course" required>
-              <option value="">--Select--</option>
-              <option value="btech-me">B.Tech (ME)</option>
-              <option value="mtech-rob">M.Tech (Robotics)</option>
-              <option value="bba">BBA</option>
-            </select>
+    <aside class="aside-lead">
+      <h3>Request info / apply</h3>
+     <form id="leadForm" action="#" method="post" novalidate>
+  <label for="name">Full name
+    <input id="name" name="name" required placeholder="e.g. Rahul Sharma">
           </label>
-          <label>Intake Year
-            <select name="intake" id="intake" required>
-              <option value="">--Select--</option>
-              <option>2025</option>
-              <option>2026</option>
-              <option>2027</option>
-            </select>
+
+          <label for="email">Email
+          <input id="email" name="email" type="email" required>
           </label>
-          <label class="consent"><input type="checkbox" id="consent" required /> I consent to be contacted</label>
-          <div id="formMsg" class="form-msg" aria-live="polite"></div>
-          <button type="submit" class="btn full">Submit</button>
+
+          <label for="phone">phone
+          <input id="phone" name="phone" maxlength="10" pattern="\d{10}">
+          </label>
+
+          <label for="state">state
+            <input id="state" name="state">
+          </label>
+
+          <label for="course">
+           Course intrested
+           <select id="course" name="course">
+           <option value="">-select-</option>
+            <option value="btech">B.Tech</option>
+              <option value="mba">MBA</option>
+              <option value="bcom">B.COM</option>
+       </select>  
+       </label>
+
+       <label for="intake">Intake year
+        <select id="intake" name="intake">
+          <option>2025</option>
+          <option>2026</option>
+          <option>2027</option>
+        </select>
+       </label>
+       <label class="consent-row">
+        <input id ="consent" type="checkbox">I agree to be contacted>
+     </label>
+
+   <div id="formMsg" class="form-message" aria-hidden="true"></div>
+     <button type="submit" class="btn full">Send</button>
         </form>
-      </aside>
-    </section>
 
-    <section id="overview">
-      <h3>Overview</h3>
-      <p>Kiran Institute focuses on applied engineering and strong internship pipelines.</p>
-    </section>
+        <section id="overview" class="section">
+          <h3>Overview</h3>
+          <p>Aditya University is a private institution with focus on hands-on learning, internships and small batch mentoring.</p> </p>
+        </section>
 
-    <section id="courses">
-      <h3>Courses</h3>
-      <ul id="coursesList"></ul>
-    </section>
-
-    <section id="placements">
-      <h3>Placements</h3>
-      <p>Average package: INR 3.8 LPA. Recruiters include AutoInc, RoboticsLab, DataWorks.</p>
-    </section>
-
-    <section id="facilities">
-      <h3>Facilities</h3>
-      <ul>
-        <li>Workshops</li>
-        <li>Research Labs</li>
-        <li>Hostel</li>
-        <li>Gym</li>
-      </ul>
-    </section>
-  </main>
-
-
-  <div id="feeModal" class="modal" aria-hidden="true">
-    <div class="modal-inner">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <h4>Course-wise Fees</h4>
-      <div id="feesContent">Loading...</div>
+        <section id="course" class="section">
+          <h3>Courses</h3>
+        <ul id="coursesList"></ul>
+          </ul>
+        </section>
+        <section id="placements" class="section">
+          <h3>Placements</h3>
+          <P>Average package of 12LPA Guaranteed with experinced professionals</P>
+        </section>
+        <section id="facilities" class="section">
+          <h3>Facilities</h3>
+          <ul>
+          <li>Hostel</li>
+          <li>Sports</li>
+           <li>Computer LABS</li>
+          </ul>
+        </section> 
+      </main>
+      <div id="feeModal" class="modal" style="display:none;">
+         <div class="modal-box">
+      <button id="closeModal" class="close">Close</button>
+      <h4>Fees</h4>
+      <div id="feesContent">—</div>
     </div>
-  </div>
-
-  <footer class="site-footer container">
-    <small>&copy; Kiran Institute of Technology (Demo)</small>
+      </div>
+  <footer class="site-footer wrap">
+    <small>&copy; PARUL University</small>
   </footer>
-
   <script src="app.js"></script>
 </body>
 </html>
+
+
+
+
+
+    
